@@ -1,5 +1,4 @@
-#ifndef __Game__
-#define __Game__
+#pragma once
 #include "SDL.h"
 #include <vector>
 
@@ -13,7 +12,21 @@ class Game
 {
   public:
   Game() {}
-  ~Game() {}
+  static Game* s_pInstance;
+
+  static Game * Instance()
+  {
+    if(s_pInstance == 0)
+    {
+      s_pInstance = new Game();
+      return s_pInstance;
+    }
+
+    return s_pInstance;
+  }
+
+  SDL_Renderer* getRenderer() const{
+    return m_pRenderer;}
 
   bool init(const char* title, int xpos, int ypos, int height, int width, int flags);
   void render();
@@ -33,7 +46,8 @@ class Game
   //GameObject m_go;
   //Player m_player;
 
-  std::vector<GameObject*> m_gameObjects; 
+  std::vector<GameObject*> m_gameObjects;
+   
 };
 
-#endif
+typedef Game TheGame;
