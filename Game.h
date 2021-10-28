@@ -1,6 +1,8 @@
 #ifndef __Game__
 #define __Game__
 #include "SDL.h"
+#include <vector>
+
 #include "SDL_image.h"
 #include "TextureManager.h"
 #include "GameObject.h"
@@ -28,8 +30,10 @@ class Game
   int speed = 10;
   int m_currentFrame;
 
-  GameObject m_go;
-  Player m_player;
+  //GameObject m_go;
+  //Player m_player;
+
+  std::vector<GameObject*> m_gameObjects; 
 };
 
 #endif

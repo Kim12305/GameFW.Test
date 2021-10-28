@@ -9,13 +9,13 @@
 class GameObject
 {
   public:
-  void load(int x, int y, int width, int height,
+  virtual void load(int x, int y, int width, int height,
   std::string textureID);
   
-  void draw(SDL_Renderer* pRenderer);
-  void update();
+  virtual void draw(SDL_Renderer* pRenderer);
+  virtual void update();
 
-  void clean();
+  virtual void clean() {};
 
   protected:
   std::string m_textureID;
