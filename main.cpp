@@ -4,18 +4,19 @@
 SDL_Window* g_pWindow = 0; 
 //렌더링 상태를 포함하는 구조체
 SDL_Renderer* g_pRenderer = 0;
+bool g_bRunning = false;
 
-int main(int argc, char* args[])
+bool init(const char* title, int xpos, int ypos,
+          int height, int width, int flags)
 {
-  //SDL초기화
   if(SDL_Init(SDL_INIT_EVERYTHING) >= 0)
   {
     //윈도우 생성하려는 함수
-    g_pWindow = SDL_CreateWindow("SDL1", 
-        SDL_WINDOWPOS_CENTERED,
-        SDL_WINDOWPOS_CENTERED,
-        640, 480,
-        SDL_WINDOW_SHOWN);
+    g_pWindow = SDL_CreateWindow(title, 
+        xpos,
+        ypos,
+        height, width,
+        flags);
 
     if(g_pWindow != 0)
     {
@@ -25,18 +26,40 @@ int main(int argc, char* args[])
 
   }
 
-  else
+  else //실패하면 false 출력
   {
-    return 1;
+    return false;
   }
 
-  
-  //화면 초기화 상태
   SDL_SetRenderDrawColor(g_pRenderer, 0, 0, 0, 255);
+
+  return true;
+}
+
+void render()
+{
   SDL_RenderClear(g_pRenderer);
   SDL_RenderPresent(g_pRenderer);
+}
 
-  SDL_Delay(5000); //5초대기
+int main(int argc, char* args[])
+{
+  if(init("SDL1", 
+    SDL_WINDOWPOS_CENTERED,
+    SDL_WINDOWPOS_CENTERED,
+    640, 480,
+    SDL_WINDOW_SHOWN))
+
+    g_bRunning = true;
+  
+  else return 1;
+
+  while (g_bRunning)
+  {
+    render();
+  }
+  
+  //SDL_Delay(5000); //5초대기
   SDL_Quit();
 
   return 0;
