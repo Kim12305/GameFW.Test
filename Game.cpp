@@ -41,6 +41,27 @@ bool Game::init(const char* title, int xpos, int ypos, int height, int width, in
     return false;
   }
 
+//Texture 생성
+  SDL_Surface* pTempSurface = SDL_LoadBMP("Assets/rider.bmp");
+  m_pTexture = SDL_CreateTextureFromSurface(m_pRenderer, pTempSurface);
+  SDL_FreeSurface(pTempSurface);
+
+  //원본상자 너비높이 설정
+  SDL_QueryTexture(m_pTexture, NULL, NULL, &m_sourceRectangle.w, &m_sourceRectangle.h);
+
+  //대상상자의 너비높이 설정
+  //원본과 동일하게 설정
+  m_destinationRectangle.w = m_sourceRectangle.w;
+
+  m_destinationRectangle.h = m_sourceRectangle.h;
+
+  //원본상자 대상상자의 위치 설정
+  m_destinationRectangle.x = m_sourceRectangle.x = 0;
+
+  m_destinationRectangle.y = m_sourceRectangle.y = 0;
+  
+  
+
   m_bRunning = true;
   return true;
 }
@@ -53,6 +74,7 @@ void Game::update()
 void Game::render()
 {
   SDL_RenderClear(m_pRenderer);
+  SDL_RenderCopy(m_pRenderer, m_pTexture, &m_sourceRectangle, & m_destinationRectangle);
   SDL_RenderPresent(m_pRenderer);
 
 }
