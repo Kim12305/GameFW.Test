@@ -3,6 +3,9 @@
 #include "SDL.h"
 #include "SDL_image.h"
 #include "TextureManager.h"
+#include "GameObject.h"
+#include "Player.h"
+
 
 class Game 
 {
@@ -21,24 +24,12 @@ class Game
   SDL_Window* m_pWindow; 
   SDL_Renderer* m_pRenderer;
   bool m_bRunning;
-/*
-  SDL_Texture* m_pTexture;
-  //원본 사각형
-  SDL_Rect m_sourceRectangle;
-  //대상 사각형
-  SDL_Rect m_destinationRectangle;
 
-  SDL_Texture* m_pTexture1;
-  //원본 사각형
-  SDL_Rect m_sourceRectangle1;
-  //대상 사각형
-  SDL_Rect m_destinationRectangle1;
-*/
-  
   int speed = 10;
-
-  //TextureManager m_textureManager;
   int m_currentFrame;
+
+  GameObject m_go;
+  Player m_player;
 };
 
 #endif
