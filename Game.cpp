@@ -1,4 +1,6 @@
 #include "Game.h"
+#define SCREEN_HEIGHT 480
+#define SCREEN_WIDTH 640
 
 bool Game::init(const char* title, int xpos, int ypos, int height, int width, int flags)
 {
@@ -73,8 +75,32 @@ void Game::update()
 
 void Game::render()
 {
+  SDL_SetRenderDrawColor(m_pRenderer, 255, 255, 255, 255);
   SDL_RenderClear(m_pRenderer);
-  SDL_RenderCopy(m_pRenderer, m_pTexture, &m_sourceRectangle, & m_destinationRectangle);
+
+  SDL_Rect fillRect = {SCREEN_WIDTH/4, SCREEN_HEIGHT/4, SCREEN_WIDTH/2, SCREEN_HEIGHT/2};
+  SDL_SetRenderDrawColor(m_pRenderer, 255, 0, 0, 255);
+  SDL_RenderFillRect(m_pRenderer, &fillRect);
+
+  SDL_Rect outlineRect = {SCREEN_WIDTH/6, SCREEN_HEIGHT/6, SCREEN_WIDTH* 2/3, SCREEN_HEIGHT* 2/3};
+  SDL_SetRenderDrawColor(m_pRenderer, 0, 255, 0, 255);
+  SDL_RenderDrawRect(m_pRenderer, &outlineRect);
+
+  SDL_SetRenderDrawColor(m_pRenderer, 0, 0, 255, 255);
+  SDL_RenderDrawLine(m_pRenderer, 0, SCREEN_HEIGHT/2, SCREEN_WIDTH, SCREEN_HEIGHT/2);
+
+  SDL_SetRenderDrawColor(m_pRenderer, 255, 255, 0, 255);
+  for(int i = 0; i < SCREEN_HEIGHT; i += 4)
+  {
+    SDL_RenderDrawPoint(m_pRenderer, SCREEN_WIDTH/2, i);
+  }
+
+
+
+
+
+
+ // SDL_RenderCopy(m_pRenderer, m_pTexture, &m_sourceRectangle, & m_destinationRectangle);
   SDL_RenderPresent(m_pRenderer);
 
 }
