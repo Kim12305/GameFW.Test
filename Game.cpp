@@ -43,34 +43,11 @@ bool Game::init(const char* title, int xpos, int ypos, int height, int width, in
     return false;
   }
 
-//Texture 생성
-  //SDL_Surface* pTempSurface = IMG_Load("Assets/animate-alpha.png");
+  if(!TheTextureManager::Instance() -> load("Assets/animate-alpha.png", "animate", m_pRenderer))
+  {
+    return false;
+  }
 
-  m_textureManager.load("Assets/animate-alpha.png", "animate", m_pRenderer);
- // m_pTexture = SDL_CreateTextureFromSurface(m_pRenderer, pTempSurface);
- // SDL_FreeSurface(pTempSurface);
-
-
-  //원본상자 너비높이 설정
-  
-
-  m_sourceRectangle.x = 0;
-  m_sourceRectangle.y = 0;
-
-  //대상상자의 너비높이 설정
-  //원본과 동일하게 설정
-  m_sourceRectangle.w = 120;
-  m_sourceRectangle.h = 82;
-
-  m_destinationRectangle.w = m_sourceRectangle.w;
-  m_destinationRectangle.h = m_sourceRectangle.h;
-
-  //대상상자의 위치 설정
-  m_destinationRectangle.x = m_sourceRectangle.x = 0;
-  m_destinationRectangle.y= m_sourceRectangle.y = 0;
-
-
-  
   m_bRunning = true;
   return true;
 }
@@ -78,8 +55,6 @@ bool Game::init(const char* title, int xpos, int ypos, int height, int width, in
 void Game::update()
 {
 
-  //애니메이션은 이것만 추가
-  //m_sourceRectangle.x = 128 * ((SDL_GetTicks() / 100) % 6);
   m_currentFrame = ((SDL_GetTicks() / 100) % 6);
 }
 
@@ -87,10 +62,9 @@ void Game::render()
 {
   SDL_RenderClear(m_pRenderer);
 
-  //SDL_RenderCopy(m_pRenderer, m_pTexture, &m_sourceRectangle, & m_destinationRectangle);
-  m_textureManager.draw("animate", 0, 0, 128, 82, m_pRenderer);
+  TheTextureManager::Instance()->draw("animate", 0, 0, 128, 82, m_pRenderer);
 
-  m_textureManager.drawFrame("animate", 100, 100, 128, 82, 0, m_currentFrame, m_pRenderer);
+  TheTextureManager::Instance()->drawFrame("animate", 100, 100, 128, 82, 0, m_currentFrame, m_pRenderer);
 
   SDL_RenderPresent(m_pRenderer);
 
