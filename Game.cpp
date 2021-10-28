@@ -1,6 +1,4 @@
 #include "Game.h"
-#define SCREEN_HEIGHT 480
-#define SCREEN_WIDTH 640
 
 bool Game::init(const char* title, int xpos, int ypos, int height, int width, int flags)
 {
@@ -49,18 +47,20 @@ bool Game::init(const char* title, int xpos, int ypos, int height, int width, in
   SDL_FreeSurface(pTempSurface);
 
   //원본상자 너비높이 설정
+  //SDL_QueryTexture(m_pTexture, NULL, NULL, &m_sourceRectangle.w, &m_sourceRectangle.h);
   SDL_QueryTexture(m_pTexture, NULL, NULL, &m_sourceRectangle.w, &m_sourceRectangle.h);
+
+  m_sourceRectangle.x = 0;
+  m_sourceRectangle.y = 0;
 
   //대상상자의 너비높이 설정
   //원본과 동일하게 설정
   m_destinationRectangle.w = m_sourceRectangle.w;
-
   m_destinationRectangle.h = m_sourceRectangle.h;
 
-  //원본상자 대상상자의 위치 설정
-  m_destinationRectangle.x = m_sourceRectangle.x = 0;
-
-  m_destinationRectangle.y = m_sourceRectangle.y = 0;
+  //대상상자의 위치 설정
+  m_destinationRectangle.x = 0;
+  m_destinationRectangle.y = 0;
   
   
 
@@ -75,32 +75,8 @@ void Game::update()
 
 void Game::render()
 {
-  SDL_SetRenderDrawColor(m_pRenderer, 255, 255, 255, 255);
   SDL_RenderClear(m_pRenderer);
-
-  SDL_Rect fillRect = {SCREEN_WIDTH/4, SCREEN_HEIGHT/4, SCREEN_WIDTH/2, SCREEN_HEIGHT/2};
-  SDL_SetRenderDrawColor(m_pRenderer, 255, 0, 0, 255);
-  SDL_RenderFillRect(m_pRenderer, &fillRect);
-
-  SDL_Rect outlineRect = {SCREEN_WIDTH/6, SCREEN_HEIGHT/6, SCREEN_WIDTH* 2/3, SCREEN_HEIGHT* 2/3};
-  SDL_SetRenderDrawColor(m_pRenderer, 0, 255, 0, 255);
-  SDL_RenderDrawRect(m_pRenderer, &outlineRect);
-
-  SDL_SetRenderDrawColor(m_pRenderer, 0, 0, 255, 255);
-  SDL_RenderDrawLine(m_pRenderer, 0, SCREEN_HEIGHT/2, SCREEN_WIDTH, SCREEN_HEIGHT/2);
-
-  SDL_SetRenderDrawColor(m_pRenderer, 255, 255, 0, 255);
-  for(int i = 0; i < SCREEN_HEIGHT; i += 4)
-  {
-    SDL_RenderDrawPoint(m_pRenderer, SCREEN_WIDTH/2, i);
-  }
-
-
-
-
-
-
- // SDL_RenderCopy(m_pRenderer, m_pTexture, &m_sourceRectangle, & m_destinationRectangle);
+  SDL_RenderCopy(m_pRenderer, m_pTexture, &m_sourceRectangle, & m_destinationRectangle);
   SDL_RenderPresent(m_pRenderer);
 
 }
