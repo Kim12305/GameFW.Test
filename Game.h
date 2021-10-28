@@ -2,6 +2,7 @@
 #define __Game__
 #include "SDL.h"
 #include "SDL_image.h"
+#include "TextureManager.h"
 
 class Game 
 {
@@ -34,6 +35,9 @@ class Game
   SDL_Rect m_destinationRectangle1;
   
   int speed = 10;
+
+  TextureManager m_textureManager;
+  int m_currentFrame;
 };
 
 #endif
