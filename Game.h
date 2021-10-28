@@ -25,7 +25,14 @@ class Game
   SDL_Rect m_sourceRectangle;
   //대상 사각형
   SDL_Rect m_destinationRectangle;
+
+  SDL_Texture* m_pTexture1;
+  //원본 사각형
+  SDL_Rect m_sourceRectangle1;
+  //대상 사각형
+  SDL_Rect m_destinationRectangle1;
   
+  int speed = 10;
 };
 
 #endif
