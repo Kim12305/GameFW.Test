@@ -43,52 +43,28 @@ bool Game::init(const char* title, int xpos, int ypos, int height, int width, in
   }
 
 //Texture 생성
-  SDL_Surface* pTempSurface = SDL_LoadBMP("Assets/rider.bmp");
+  SDL_Surface* pTempSurface = SDL_LoadBMP("Assets/animate.bmp");
   m_pTexture = SDL_CreateTextureFromSurface(m_pRenderer, pTempSurface);
   SDL_FreeSurface(pTempSurface);
 
-//Texture1 생성
-  SDL_Surface* pTempSurface1 = SDL_LoadBMP("Assets/rider.bmp");
-  m_pTexture1 = SDL_CreateTextureFromSurface(m_pRenderer, pTempSurface1);
-  SDL_FreeSurface(pTempSurface1);
 
   //원본상자 너비높이 설정
-  //SDL_QueryTexture(m_pTexture, NULL, NULL, &m_sourceRectangle.w, &m_sourceRectangle.h);
-  SDL_QueryTexture(m_pTexture, NULL, NULL, &m_sourceRectangle.w, &m_sourceRectangle.h);
+  
 
   m_sourceRectangle.x = 0;
   m_sourceRectangle.y = 0;
 
   //대상상자의 너비높이 설정
   //원본과 동일하게 설정
-  m_sourceRectangle.w = 50;
-  m_sourceRectangle.h = 50;
+  m_sourceRectangle.w = 120;
+  m_sourceRectangle.h = 82;
 
   m_destinationRectangle.w = m_sourceRectangle.w;
   m_destinationRectangle.h = m_sourceRectangle.h;
 
   //대상상자의 위치 설정
-  m_destinationRectangle.x = 0;
-  m_destinationRectangle.y = 0;
-
-  ////////////////////////
-
-   SDL_QueryTexture(m_pTexture1, NULL, NULL, &m_sourceRectangle1.w, &m_sourceRectangle1.h);
-
-  m_sourceRectangle1.x = 0;
-  m_sourceRectangle1.y = 0;
-
-  //대상상자의 너비높이 설정
-  //원본과 동일하게 설정
-
-  m_destinationRectangle1.w = m_sourceRectangle1.w;
-  m_destinationRectangle1.h = m_sourceRectangle1.h;
-
-  //대상상자의 위치 설정
-  m_destinationRectangle1.x = 0;
-  m_destinationRectangle1.y = 0;
-  
-  
+  m_destinationRectangle.x = m_sourceRectangle.x = 0;
+  m_destinationRectangle.y= m_sourceRectangle.y = 0;
 
   m_bRunning = true;
   return true;
@@ -97,22 +73,15 @@ bool Game::init(const char* title, int xpos, int ypos, int height, int width, in
 void Game::update()
 {
 
-  m_destinationRectangle.x += speed;
-  SDL_Delay(100);
-
-  if((0 >= m_destinationRectangle.x)||((m_destinationRectangle.x + 50) >= 150))
-  {
-    speed *= -1;
-    //SDL_Delay(100);
-  }
+  //애니메이션은 이것만 추가
+  m_sourceRectangle.x = 128 * ((SDL_GetTicks() / 100) % 6);
 
 }
 
 void Game::render()
 {
   SDL_RenderClear(m_pRenderer);
-  
-  SDL_RenderCopy(m_pRenderer, m_pTexture1, NULL, NULL);
+
   SDL_RenderCopy(m_pRenderer, m_pTexture, &m_sourceRectangle, & m_destinationRectangle);
 
   SDL_RenderPresent(m_pRenderer);
