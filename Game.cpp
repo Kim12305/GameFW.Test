@@ -1,4 +1,5 @@
 #include "Game.h"
+#include <iostream>
 
 
 bool Game::init(const char* title, int xpos, int ypos, int height, int width, int flags)
@@ -19,7 +20,9 @@ bool Game::init(const char* title, int xpos, int ypos, int height, int width, in
 
       if(m_pRenderer != 0)
       {
-          SDL_SetRenderDrawColor(m_pRenderer, 255, 255, 255, 255);
+          SDL_SetRenderDrawColor(m_pRenderer, 255, 0, 0, 255);
+           //붉은색 배경
+          
       }
 
        else
@@ -43,10 +46,11 @@ bool Game::init(const char* title, int xpos, int ypos, int height, int width, in
   }
 
 //Texture 생성
-  SDL_Surface* pTempSurface = SDL_LoadBMP("Assets/animate.bmp");
+  SDL_Surface* pTempSurface = IMG_Load("Assets/animate-alpha.png");
   m_pTexture = SDL_CreateTextureFromSurface(m_pRenderer, pTempSurface);
   SDL_FreeSurface(pTempSurface);
 
+  
 
   //원본상자 너비높이 설정
   
@@ -66,6 +70,8 @@ bool Game::init(const char* title, int xpos, int ypos, int height, int width, in
   m_destinationRectangle.x = m_sourceRectangle.x = 0;
   m_destinationRectangle.y= m_sourceRectangle.y = 0;
 
+
+  
   m_bRunning = true;
   return true;
 }
