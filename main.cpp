@@ -1,12 +1,8 @@
 #include "Game.h"
-#include <iostream>
-
-Game* g_game = 0;
 
 int main(int argc, char* argv[])
 {
-  if(TheGame::Instance()->init("Game1",
-  100,100,640,480,false))
+  if(TheGame::Instance()->init("Game1",100,100,640,480,false))
   {
     while (TheGame::Instance()->running())
     {

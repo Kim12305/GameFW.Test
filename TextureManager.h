@@ -25,8 +25,8 @@ class TextureManager
 
      void drawFrame(std::string id, int x, int y, int width, int height, int currentRow, int currentFrame, SDL_Renderer* pRenderer, SDL_RendererFlip filp = SDL_FLIP_NONE);
 
-  private:
-  std::map<std::string, SDL_Texture*> m_textureMap;
+    private:
+    std::map<std::string, SDL_Texture*> m_textureMap;
 };
 
 typedef TextureManager TheTextureManager;

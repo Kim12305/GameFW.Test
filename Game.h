@@ -1,19 +1,23 @@
 #pragma once
 #include "SDL.h"
 #include <vector>
-
 #include "SDL_image.h"
+#include <iostream>
+
 #include "TextureManager.h"
 #include "GameObject.h"
+#include "SDLGameObject.h"
 #include "Player.h"
+#include "Enemy.h"
 
 
 class Game 
 {
-  public:
+  private:
   Game() {}
   static Game* s_pInstance;
 
+  public:
   static Game * Instance()
   {
     if(s_pInstance == 0)
@@ -25,8 +29,7 @@ class Game
     return s_pInstance;
   }
 
-  SDL_Renderer* getRenderer() const{
-    return m_pRenderer;}
+  SDL_Renderer* getRenderer() const {return m_pRenderer;}
 
   bool init(const char* title, int xpos, int ypos, int height, int width, int flags);
   void render();
@@ -42,12 +45,9 @@ class Game
 
   int speed = 10;
   int m_currentFrame;
-
-  //GameObject m_go;
-  //Player m_player;
-
+  
   std::vector<GameObject*> m_gameObjects;
    
 };
-
 typedef Game TheGame;
+
